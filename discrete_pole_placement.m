@@ -39,6 +39,9 @@ C_obs = [sys_discrete.C, zeros(1, 4);
          zeros(1, 4), sys_discrete.C];
 
 observer = ss(A_obs, B_obs, C_obs, 0, 'Ts', sys_discrete.Ts); 
+
+bode(observer)
+figure;
 k_r = dcgain(observer);
 k_r = k_r(1)^-1;
 
@@ -50,6 +53,16 @@ u =  k_r * ones(size(time));
 
 stairs(t, y);
 legend('Model', 'Observer');
+xlabel("Time [s]"); ylabel("Output [m]");
 title('Observer and model output');
+saveas(gcf, 'images/observer_model_output.png');
+
+% disturbance rejection via integrator
+fig = figure;
+stairs(observer_sim_dist.Time, observer_sim_dist.Data(:, 1))
+xlabel("Time [s]"); ylabel("Output [m]");
+title("Observer model response to disturbances");
+saveas(fig, 'images/observer_dist_rej.png');
+
 
 

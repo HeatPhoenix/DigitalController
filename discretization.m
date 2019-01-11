@@ -34,5 +34,3 @@ step(dist_track_sys_d, 'r');
 legend('Continous', 'Discrete');
 title('Response to a step disturbance');
 saveas(fig, 'images/step_dist_response_comp.jpg');
-
-
